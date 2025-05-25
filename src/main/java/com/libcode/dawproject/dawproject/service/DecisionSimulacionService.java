@@ -17,16 +17,16 @@ public class DecisionSimulacionService {
         this.decisionSimulacionRepository = decisionSimulacionRepository;
     }
 
+    public DecisionSimulacion guardar(DecisionSimulacion decision) {
+        return decisionSimulacionRepository.save(decision);
+    }
+
     public List<DecisionSimulacion> obtenerTodas() {
         return decisionSimulacionRepository.findAll();
     }
 
     public Optional<DecisionSimulacion> obtenerPorId(Long id) {
         return decisionSimulacionRepository.findById(id);
-    }
-
-    public DecisionSimulacion guardar(DecisionSimulacion decision) {
-        return decisionSimulacionRepository.save(decision);
     }
 
     public void eliminar(Long id) {

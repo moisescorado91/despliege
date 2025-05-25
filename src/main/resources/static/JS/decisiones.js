@@ -105,3 +105,4 @@ boton.addEventListener('click', async function () {
         cuerpoTabla.innerHTML = `<tr><td colspan="5" class="text-center text-danger">Error al cargar las tareas</td></tr>`;
     }
 })
+

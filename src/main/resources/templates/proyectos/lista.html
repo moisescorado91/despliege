@@ -80,6 +80,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Nombre</th>
+                        <th>Descripcion</th>
                         <th>Usuario</th>
                         <th>Metodología</th>
                         <th>Fecha de Creación</th>
@@ -90,6 +91,7 @@
                     <tr th:each="proyecto : ${proyectos}">
                         <td th:text="${proyecto.id}"></td>
                         <td th:text="${proyecto.nombre}"></td>
+                        <td th:text="${proyecto.descripcion}"></td>
                         <td th:text="${proyecto.usuario?.nombre}">Sin asignar</td>
                         <td th:text="${proyecto.metodologia.nombre}"></td>
                         <td th:text="${#temporals.format(proyecto.fechaCreacion, 'dd/MM/yyyy HH:mm')}"></td>
@@ -101,24 +103,6 @@
                             </div>
                         </td>
                     </tr>
-                    
-                    <!-- If there are no proyectos -->
-
-
-                    <!-- 
-                    
-                    <tr th:if="${#lists.isEmpty(proyectos)}">
-                        <td colspan="6">
-                            <div class="empty-state">
-                                <div class="empty-state-icon">
-                                    <i class="bi bi-folder"></i>
-                                </div>
-                                <p class="empty-state-text">No hay proyectos para mostrar</p>
-                                <a href="#" class="btn btn-primary">Crear Proyecto</a>
-                            </div>
-                        </td>
-                    </tr>
-                    -->
                 </tbody>
             </table>
         </div>
@@ -135,41 +119,44 @@
         </div>
     </div>
     
-    <!-- Modal para Nuevo Proyecto-->
+<!-- Modal para Nuevo Proyecto-->
 <div class="modal fade" id="nuevoProyectoModal" tabindex="-1" aria-labelledby="nuevoProyectoModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+  <div class="modal-dialog">
     <div class="modal-content">
-        <form th:action="@{/proyectos/guardar}" method="post">
+      <form th:action="@{/proyectos/guardar}" method="post">
         <div class="modal-header">
-            <h5 class="modal-title" id="nuevoProyectoModalLabel">Nuevo Proyecto</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          <h5 class="modal-title" id="nuevoProyectoModalLabel">Nuevo Proyecto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
         </div>
         <div class="modal-body">
-            <!-- Campo para el nombre del proyecto -->
-            <div class="mb-3">
-                <label for="nombreProyecto" class="form-label">Nombre del Proyecto</label>
-                <input type="text" class="form-control" id="nombreProyecto" name="nombre" required>
-            </div>
+          <div class="mb-3">
+            <label for="nombreProyecto" class="form-label">Nombre del Proyecto</label>
+            <input type="text" class="form-control" id="nombreProyecto" name="nombre" required>
+          </div>
 
-            <!-- Dropdown para seleccionar la metodología -->
-            <div class="mb-3">
-                <label for="metodologia" class="form-label">Metodología</label>
+          <div class="mb-3">
+            <label for="descripcionProyecto" class="form-label">Descripción</label>
+            <textarea class="form-control" id="descripcionProyecto" name="descripcion" rows="4" placeholder="Este proyecto es....."></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="metodologia" class="form-label">Metodología</label>
             <select class="form-select" id="metodologia" name="metodologiaId" required>
-                <option value="">Seleccione una metodología</option>
-                <option value="1">Scrum</option>
-                <option value="2">Kanban</option>
-                <option value="3">Waterfall</option>
+              <option value="">Seleccione una metodología</option>
+              <option value="1">Scrum</option>
+              <option value="2">Kanban</option>
+              <option value="3">Waterfall</option>
             </select>
-            </div>
+          </div>
         </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-primary">Guardar Proyecto</button>
-            </div>
-        </form>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Guardar Proyecto</button>
+        </div>
+      </form>
     </div>
-    </div>
+  </div>
 </div>
+
 
 <!-- Modal for confirming project deletion -->
 <div class="modal fade" id="deleteProyectoModal" tabindex="-1" aria-labelledby="deleteProyectoModalLabel" aria-hidden="true">

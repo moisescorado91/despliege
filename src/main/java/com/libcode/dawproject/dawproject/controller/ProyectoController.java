@@ -22,6 +22,22 @@ public class ProyectoController {
         this.proyectoService = proyectoService;
     }
 
+    @PostMapping("/guardar")
+    public String guardarProyecto(@RequestParam("nombre") String nombre,
+            @RequestParam("descripcion") String descripcion,
+            @RequestParam("metodologiaId") Long metodologiaId) {
+        try {
+            proyectoService.guardarProyecto(nombre, metodologiaId, descripcion);
+            return "redirect:/proyectos?exito";
+        } catch (Exception e) {
+            System.out.println("**************************************************************************");
+            System.out.println("Error al guardar el proyecto: " + e.getMessage());
+            e.printStackTrace(); // 👈 IMPORTANTE: imprime el error en consola
+            System.out.println("**************************************************************************");
+            return "redirect:/proyectos?error";
+        }
+    }
+
     // Ruta: http://localhost:8080/proyectos
     @GetMapping
     public String listarProyectos(Model model,
@@ -44,17 +60,6 @@ public class ProyectoController {
         }
 
         return "proyectos/lista";
-    }
-
-    @PostMapping("/guardar")
-    public String guardarProyecto(@RequestParam("nombre") String nombre,
-            @RequestParam("metodologiaId") Long metodologiaId) {
-        try {
-            proyectoService.guardarProyecto(nombre, metodologiaId);
-            return "redirect:/proyectos?exito";
-        } catch (Exception e) {
-            return "redirect:/proyectos?error";
-        }
     }
 
     @PostMapping("/eliminar")

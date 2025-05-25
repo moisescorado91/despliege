@@ -15,6 +15,9 @@ public class Proyecto {
     @Column(nullable = false, length = 100)
     private String nombre;
 
+    @Column(length = 255)
+    private String descripcion; // ✅ Nuevo campo añadido
+
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
@@ -31,12 +34,13 @@ public class Proyecto {
 
     // Constructor vacío
     public Proyecto() {
-        this.fechaCreacion = LocalDateTime.now(); // asignación automática
+        this.fechaCreacion = LocalDateTime.now();
     }
 
     // Constructor con campos clave
-    public Proyecto(String nombre, Usuario usuario, Metodologia metodologia) {
+    public Proyecto(String nombre, String descripcion, Usuario usuario, Metodologia metodologia) {
         this.nombre = nombre;
+        this.descripcion = descripcion;
         this.usuario = usuario;
         this.metodologia = metodologia;
         this.fechaCreacion = LocalDateTime.now();
@@ -57,6 +61,14 @@ public class Proyecto {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public Usuario getUsuario() {
@@ -91,4 +103,3 @@ public class Proyecto {
         this.simulaciones = simulaciones;
     }
 }
-
